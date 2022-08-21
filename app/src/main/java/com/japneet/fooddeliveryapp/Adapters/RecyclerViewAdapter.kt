@@ -1,14 +1,13 @@
 package com.japneet.fooddeliveryapp.Adapters
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.japneet.fooddeliveryapp.Models.Hours
@@ -17,7 +16,10 @@ import com.japneet.fooddeliveryapp.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RecyclerViewAdapter(val orderListModel: List<OrderListModel?>?) :
+class RecyclerViewAdapter(
+    val orderListModel: List<OrderListModel?>?, private val clickListener:
+    RestaurantOnClickListener
+) :
     RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
 
     private lateinit var context: Context
@@ -38,9 +40,8 @@ class RecyclerViewAdapter(val orderListModel: List<OrderListModel?>?) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(orderListModel?.get(position))
-        holder.restaurantCardView.setOnClickListener {
-            Log.d("japneet", "" + orderListModel?.get(position)?.name)
-//            RestaurantOnClickListener.onItemClick(orderListModel?.get(holder.layoutPosition),holder.layoutPosition)
+        holder.itemView.setOnClickListener {
+            clickListener.onItemClick(orderListModel?.get(position)!!)
         }
 
     }
@@ -80,8 +81,8 @@ class RecyclerViewAdapter(val orderListModel: List<OrderListModel?>?) :
         }
     }
 
-     interface RestaurantOnClickListener {
-        fun onItemClick(orderListModel: OrderListModel, pos: Int)
+    interface RestaurantOnClickListener {
+        fun onItemClick(orderListModel: OrderListModel)
     }
 
 }

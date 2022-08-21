@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.RestaurantOnClickL
     private fun initRecyclerView(restaurantList :List<OrderListModel?>? ) {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = RecyclerViewAdapter(restaurantList)
+        val adapter = RecyclerViewAdapter(restaurantList, this)
         recyclerView.adapter = adapter
     }
 
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.RestaurantOnClickL
         return orderListModel.toList()
     }
 
-    override fun onItemClick(orderListModel: OrderListModel, pos: Int) {
+    override fun onItemClick(orderListModel: OrderListModel) {
         val intent = Intent(this@MainActivity, RestaurantMenuActivity::class.java )
         intent.putExtra("orderListModel",orderListModel)
         startActivity(intent)

@@ -3,8 +3,8 @@ package com.japneet.fooddeliveryapp.Models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class OrderListModel(val name : String? , val address : String?, val delivery_charge : String?,
-                          val image : String? , val hours: Hours? ,val menus: List<Menus?>? ) : Parcelable {
+data class OrderListModel(val name : String?, val address : String?, val delivery_charge : String?,
+                          val image : String?, val hours: Hours?, var menus: List<Menus?>? ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -77,7 +77,7 @@ data class Hours(val Sunday : String?,val Monday : String?,val Tuesday : String?
     }
 }
 
-data class Menus(val name : String?,val price : Float,val url : String? , val totalInCart : Int) :
+data class Menus(var name : String?, var price : Float, var url : String?, var totalInCart : Int) :
     Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
